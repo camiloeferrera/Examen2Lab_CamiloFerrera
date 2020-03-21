@@ -26,12 +26,13 @@ public class Inicio extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         usuarios.add(new Cliente("camiloeferrera","java123","Camilo","Eduardo","Ferrera","Padilla","0801",2000,2020));
+        usuarios.add(new Mantenimiento ("diegom","java123", "Diego","Eduardo","Mendoza" ,"Mejia","0809",1998,2020));
         ((Cliente)usuarios.get(0)).getCuentas().add(new Cuenta (11841136));
         ((Cliente)usuarios.get(0)).getCuentas().add(new Cuenta (11811245));
         atms.add(new ATM("Tegucigalpa","45675",2019));
         atms.add(new ATM("SPS","45211",2017));
         atms.get(1).setBilletesDe100(136);
-        
+        ((Mantenimiento)usuarios.get(1)).getAtms().add(atms.get(0));
 //        File archivo = new File ("./Datos.txt");
 //        try{
 //            if(archivo.exists()){
@@ -62,6 +63,7 @@ public class Inicio extends javax.swing.JFrame {
             cb.addElement(atms.get(i));
         }
         cb_atms.setModel(cb);
+        cb_atmm.setModel(cb);
         
         
     }
@@ -129,6 +131,26 @@ public class Inicio extends javax.swing.JFrame {
         Transacciones = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_trans = new javax.swing.JTable();
+        MenuM = new javax.swing.JDialog();
+        cb_atmm = new javax.swing.JComboBox<>();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jl_100m = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jl_500m = new javax.swing.JLabel();
+        jButton14 = new javax.swing.JButton();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        sp_100m = new javax.swing.JSpinner();
+        sp_500m = new javax.swing.JSpinner();
+        jButton15 = new javax.swing.JButton();
+        jLabel30 = new javax.swing.JLabel();
+        pf_passm = new javax.swing.JPasswordField();
+        Registro2 = new javax.swing.JDialog();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jt_atms = new javax.swing.JTable();
+        jButton16 = new javax.swing.JButton();
+        jLabel31 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -167,11 +189,10 @@ public class Inicio extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(CrearATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(CrearATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tf_ubicacionatm)
-                                .addComponent(tf_idatm, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
-                            .addComponent(yc_añoatm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(CrearATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tf_ubicacionatm)
+                            .addComponent(tf_idatm, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(yc_añoatm, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(CrearATMLayout.createSequentialGroup()
                         .addComponent(jButton4)
                         .addGap(82, 82, 82)))
@@ -212,17 +233,11 @@ public class Inicio extends javax.swing.JFrame {
 
         jLabel12.setText("Año de Nacimiento:");
 
-        tf_snombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_snombreActionPerformed(evt);
-            }
-        });
-
         jLabel13.setText("Tipo Usuario:");
 
         cb_tipousuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cliente", "Mantenimiento" }));
 
-        jButton5.setText("Registrarse");
+        jButton5.setText("Siguiente");
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton5MouseClicked(evt);
@@ -445,7 +460,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jLabel21.setText("ID:");
+        jLabel21.setText("ID (Usuarios):");
 
         jLabel24.setText("Contraseña:");
 
@@ -581,6 +596,201 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        MenuM.setTitle("Menu de Mantenimiento");
+        MenuM.setUndecorated(true);
+        MenuM.setResizable(false);
+
+        cb_atmm.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_atmmItemStateChanged(evt);
+            }
+        });
+
+        jLabel25.setText("Seleccione ATM:");
+
+        jLabel26.setText("Billetes de 100:");
+
+        jl_100m.setText("jLabel27");
+
+        jLabel27.setText("Billetes de 500:");
+
+        jl_500m.setText("jLabel28");
+
+        jButton14.setText("Dar Mantenimiento");
+        jButton14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton14MouseClicked(evt);
+            }
+        });
+
+        jLabel28.setText("Billetes de 100 a Ingresar:");
+
+        jLabel29.setText("Billetes de 500 a Ingresar:");
+
+        sp_100m.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        sp_500m.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jButton15.setText("Salir");
+        jButton15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton15MouseClicked(evt);
+            }
+        });
+
+        jLabel30.setText("Contraseña:");
+
+        javax.swing.GroupLayout MenuMLayout = new javax.swing.GroupLayout(MenuM.getContentPane());
+        MenuM.getContentPane().setLayout(MenuMLayout);
+        MenuMLayout.setHorizontalGroup(
+            MenuMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuMLayout.createSequentialGroup()
+                .addContainerGap(68, Short.MAX_VALUE)
+                .addGroup(MenuMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuMLayout.createSequentialGroup()
+                        .addComponent(jLabel25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cb_atmm, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuMLayout.createSequentialGroup()
+                        .addComponent(jButton15)
+                        .addGap(160, 160, 160))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuMLayout.createSequentialGroup()
+                        .addComponent(jButton14)
+                        .addGap(117, 117, 117))))
+            .addGroup(MenuMLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(MenuMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(MenuMLayout.createSequentialGroup()
+                        .addComponent(jLabel30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pf_passm))
+                    .addGroup(MenuMLayout.createSequentialGroup()
+                        .addComponent(jLabel29)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sp_500m))
+                    .addGroup(MenuMLayout.createSequentialGroup()
+                        .addComponent(jLabel28)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sp_100m, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(MenuMLayout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jl_100m))
+                    .addGroup(MenuMLayout.createSequentialGroup()
+                        .addComponent(jLabel27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jl_500m)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        MenuMLayout.setVerticalGroup(
+            MenuMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MenuMLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(MenuMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_atmm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25))
+                .addGap(26, 26, 26)
+                .addGroup(MenuMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(jl_100m))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(MenuMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(jl_500m))
+                .addGap(21, 21, 21)
+                .addGroup(MenuMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(sp_100m, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(MenuMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(sp_500m, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(MenuMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(pf_passm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jButton14)
+                .addGap(29, 29, 29)
+                .addComponent(jButton15)
+                .addGap(20, 20, 20))
+        );
+
+        Registro2.setTitle("Registro");
+        Registro2.setResizable(false);
+
+        jt_atms.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Ubicacion", "ID", "Año Fabrica"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jt_atms);
+        if (jt_atms.getColumnModel().getColumnCount() > 0) {
+            jt_atms.getColumnModel().getColumn(0).setResizable(false);
+            jt_atms.getColumnModel().getColumn(1).setResizable(false);
+            jt_atms.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jButton16.setText("Asignar ATM/s");
+        jButton16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton16MouseClicked(evt);
+            }
+        });
+
+        jLabel31.setText("Seleccione ATM/s, puedes usar CNTRL para seleccionar varios.");
+
+        javax.swing.GroupLayout Registro2Layout = new javax.swing.GroupLayout(Registro2.getContentPane());
+        Registro2.getContentPane().setLayout(Registro2Layout);
+        Registro2Layout.setHorizontalGroup(
+            Registro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Registro2Layout.createSequentialGroup()
+                .addGroup(Registro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Registro2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
+                    .addGroup(Registro2Layout.createSequentialGroup()
+                        .addGroup(Registro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Registro2Layout.createSequentialGroup()
+                                .addGap(184, 184, 184)
+                                .addComponent(jButton16))
+                            .addGroup(Registro2Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel31)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        Registro2Layout.setVerticalGroup(
+            Registro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Registro2Layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(jLabel31)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(jButton16)
+                .addGap(28, 28, 28))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -682,16 +892,37 @@ public class Inicio extends javax.swing.JFrame {
             }
             
             if (idvalido == true) {
-                atms.add(new ATM (u,id,año));
-                JOptionPane.showMessageDialog(CrearATM, "ATM creado con exito.");
-                CrearATM.setVisible(false);
                 
-                tf_ubicacionatm.setText("");
-                tf_idatm.setText("");
-                yc_añoatm.setYear(2020);
+                boolean lugarvalido = true;
+                for (int i = 0; i < atms.size(); i++) {
+                    if (u.equals(atms.get(i).getUbicacion())) {
+                        lugarvalido = false;
+                        break;
+                    }
+                }
+                
+                if (lugarvalido == true) {
+                    atms.add(new ATM (u,id,año));
+                    JOptionPane.showMessageDialog(CrearATM, "ATM creado con exito.");
+                    CrearATM.setVisible(false);
+
+                    tf_ubicacionatm.setText("");
+                    tf_idatm.setText("");
+                    yc_añoatm.setYear(2020);
+
+                    DefaultComboBoxModel cb = (DefaultComboBoxModel) cb_atms.getModel();
+                    cb.addElement(atms.get(atms.size()-1));
+                    cb_atms.setModel(cb);
+                    cb_atmm.setModel(cb);
+                } else {
+                    JOptionPane.showMessageDialog(CrearATM, "Ya hay un ATM en esta ubicación, intenta con otra.");
+                    tf_ubicacionatm.setText("");
+                }
+                    
                 
             } else {
                 JOptionPane.showMessageDialog(CrearATM, "ID ya ocupado, intente con otro.");
+                tf_idatm.setText("");
             }
         }
                     
@@ -739,7 +970,17 @@ public class Inicio extends javax.swing.JFrame {
                     pf_pass.setText("");
                     
                 } else {
+                    cb_atmm.setSelectedIndex(0);
+                    jl_100m.setText(Long.toString(atms.get(0).getBilletesDe100()));
+                    jl_500m.setText(Long.toString(atms.get(0).getBilletesDe500()));
+                    
+                    MenuM.pack();
+                    MenuM.setLocationRelativeTo(this);
+                    MenuM.setVisible(true);
 
+                    this.setVisible(false);
+                    tf_user.setText("");
+                    pf_pass.setText("");
                 }
                 
                 log.add(usuarios.get(flag) + " inicio sesión el: " + new Date());
@@ -750,10 +991,6 @@ public class Inicio extends javax.swing.JFrame {
         
             
     }//GEN-LAST:event_jButton1MouseClicked
-
-    private void tf_snombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_snombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tf_snombreActionPerformed
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         if (tf_idusuario.getText().isEmpty() || tf_pnombre.getText().isEmpty() || tf_snombre.getText().isEmpty() || tf_papellido.getText().isEmpty() 
@@ -787,20 +1024,35 @@ public class Inicio extends javax.swing.JFrame {
             if (idvalido == true && usuariovalido == true) {
                 if (cb_tipousuario.getSelectedIndex() == 0) {
                     usuarios.add(new Cliente (u,pass,pn,sn,pa,sa,id,año,2020));
+                    JOptionPane.showMessageDialog(Registro, "Registrado exitosamente!");
+                    Registro.setVisible(false);
+                    tf_idusuario.setText("");
+                    pf_passregistro.setText("");
+                    tf_usuario.setText("");
+                    tf_pnombre.setText("");
+                    tf_snombre.setText("");
+                    tf_papellido.setText("");
+                    tf_sapellido.setText("");
+                    yc_año.setYear(2020);
+                    cb_tipousuario.setSelectedIndex(0);
+                    log.add(usuarios.get(usuarios.size()-1) + " se ha registrado el " + new Date());
                 } else {
                     usuarios.add(new Mantenimiento (u,pass,pn,sn,pa,sa,id,año,2020));
+                    DefaultTableModel modelo = (DefaultTableModel) jt_atms.getModel();
+                    for (int i = 0; i < atms.size(); i++) {
+                        ATM x = atms.get(i);
+                        Object[] row = {x.getUbicacion(),x.getId(),x.getAñoDeFabricacion()};
+                        modelo.addRow(row);
+                    }
+                    jt_atms.setModel(modelo);
+                    
+                    Registro2.pack();
+                    Registro2.setModal(true);
+                    Registro2.setLocationRelativeTo(Registro);
+                    Registro2.setVisible(true);
                 }
                 
-                JOptionPane.showMessageDialog(Registro, "Registrado exitosamente!");
                 
-                Registro.setVisible(false);
-                tf_usuario.setText("");
-                tf_pnombre.setText("");
-                tf_snombre.setText("");
-                tf_papellido.setText("");
-                tf_sapellido.setText("");
-                yc_año.setYear(2020);
-                cb_tipousuario.setSelectedIndex(0);
             } else {
                 if (idvalido == false) {
                     JOptionPane.showMessageDialog(Registro, "ID ya ocupado.");
@@ -883,6 +1135,11 @@ public class Inicio extends javax.swing.JFrame {
         }
         jt_trans.setModel(modelo);
         
+        sp_100.setValue(0);
+        sp_500.setValue(0);
+        tf_idretiro.setText("");
+        pf_passretiro.setText("");
+        
         acciones = 0;
         contpass = 0;
         this.setVisible(true);
@@ -908,6 +1165,7 @@ public class Inicio extends javax.swing.JFrame {
                 if (cuentavalida == true) {
                     JOptionPane.showMessageDialog(MenuClientes, "Cuenta creada exitosamente!");
                     ((Cliente)usuarios.get(flag)).getCuentas().add(new Cuenta (x));
+                    log.add(usuarios.get(flag) + " se creo una nueva cuenta: " + x + " el " + new Date());
 
                     DefaultComboBoxModel cb = (DefaultComboBoxModel) cb_cuentas.getModel();
                     cb.addElement(new Cuenta (x));
@@ -939,10 +1197,10 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_cb_atmsItemStateChanged
 
     private void jButton13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton13MouseClicked
-        if (tf_idretiro.getText().isEmpty() || pf_passregistro.getText().isEmpty()) {
+        if (tf_idretiro.getText().isEmpty() || pf_passretiro.getText().isEmpty()) {
             JOptionPane.showMessageDialog(RetiroDinero, "Hay campos vacios.");
         } else {
-            if (pf_pass.getText().equals(usuarios.get(flag).getContraseña())) {
+            if (pf_passretiro.getText().equals(usuarios.get(flag).getContraseña())) {
                 boolean idvalido = false;
                 int bandera = 0;
                 for (int i = 0; i < usuarios.size(); i++) {
@@ -1024,8 +1282,8 @@ public class Inicio extends javax.swing.JFrame {
                                         acciones++;
                                         Date f = new Date();
                                         log.add(usuarios.get(flag) + " transfirio " + transferencia + " Lempiras " + " desde su cuenta " + ((Cliente)usuarios.get(flag)).getCuentas().get(cb_cuentas.getSelectedIndex()) + " a la cuenta " + x);
-                                        usuarios.get(i).getTransacciones().add(new Transaccion (((Cliente)usuarios.get(i)).getCuentas().get(j).getNumeroDeCuenta()," se le deposito a esta cuenta " ,usuarios.get(i).getId(),f));
-                                        usuarios.get(flag).getTransacciones().add(new Transaccion (((Cliente)usuarios.get(flag)).getCuentas().get(cb_cuentas.getSelectedIndex()).getNumeroDeCuenta(), " deposito dinero a otra cuenta ", usuarios.get(flag).getId(),f));
+                                        usuarios.get(i).getTransacciones().add(new Transaccion (((Cliente)usuarios.get(i)).getCuentas().get(j).getNumeroDeCuenta(),"se le deposito a esta cuenta" ,usuarios.get(i).getId(),f));
+                                        usuarios.get(flag).getTransacciones().add(new Transaccion (((Cliente)usuarios.get(flag)).getCuentas().get(cb_cuentas.getSelectedIndex()).getNumeroDeCuenta(), "deposito dinero a otra cuenta", usuarios.get(flag).getId(),f));
                                         break;
                                     }
                                 }
@@ -1122,6 +1380,99 @@ public class Inicio extends javax.swing.JFrame {
         
     }//GEN-LAST:event_formWindowClosing
 
+    private void cb_atmmItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_atmmItemStateChanged
+        ATM x = (ATM)cb_atms.getSelectedItem();
+        jl_100m.setText(Integer.toString(x.getBilletesDe100()));
+        jl_500m.setText(Integer.toString(x.getBilletesDe500()));
+    }//GEN-LAST:event_cb_atmmItemStateChanged
+
+    private void jButton14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton14MouseClicked
+        if (acciones == 0) {
+            if (pf_passm.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(MenuM,"Hay campos vacios.");
+            } else {
+                boolean atmvalido = false;
+                for (int i = 0; i < usuarios.size(); i++) {
+                    if (usuarios.get(i) instanceof Mantenimiento) {
+                        for (int j = 0; j < ((Mantenimiento)usuarios.get(i)).getAtms().size(); j++) {
+                            if (((Mantenimiento)usuarios.get(i)).getAtms().get(j).equals(atms.get(cb_atmm.getSelectedIndex()))) {
+                                atmvalido = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (atmvalido == false) {
+                    JOptionPane.showMessageDialog(MenuM, "A usted no le corresponde este ATM.");
+                    log.add(usuarios.get(flag) + " intento darle mantenimiento a un ATM no correspondiente.");
+                } else {
+                    String contraseña = pf_passm.getText();
+
+                    if (contraseña.equals(usuarios.get(flag).getContraseña())) {
+                        atms.get(cb_atmm.getSelectedIndex()).setBilletesDe100(atms.get(cb_atmm.getSelectedIndex()).getBilletesDe100()+(int)sp_100m.getValue());
+                        atms.get(cb_atmm.getSelectedIndex()).setBilletesDe500(atms.get(cb_atmm.getSelectedIndex()).getBilletesDe500()+(int)sp_500m.getValue());
+
+                        JOptionPane.showMessageDialog(MenuM, "Mantenimiento realizado exitosamente!");
+                        log.add(usuarios.get(flag) + " le dio mantenimiento al ATM: " + atms.get(cb_atmm.getSelectedIndex()));
+
+                        jl_100m.setText(Integer.toString(atms.get(cb_atmm.getSelectedIndex()).getBilletesDe100()));
+                        jl_500m.setText(Integer.toString(atms.get(cb_atmm.getSelectedIndex()).getBilletesDe500()));
+                        acciones++;
+                    } else {
+                        JOptionPane.showMessageDialog(MenuM, "Contraseña Incorrecta.");
+                    }                   
+                }
+            }                    
+        } else {
+            JOptionPane.showMessageDialog(MenuM, "Ya ha realizado una accion en el ATM.");
+        }
+    }//GEN-LAST:event_jButton14MouseClicked
+
+    private void jButton15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton15MouseClicked
+        MenuM.setVisible(false);
+        this.setVisible(true);
+        acciones = 0;
+        sp_100m.setValue(0);
+        sp_500m.setValue(0);
+        
+        pf_passm.setText("");
+    }//GEN-LAST:event_jButton15MouseClicked
+
+    private void jButton16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton16MouseClicked
+        int[] x = jt_atms.getSelectedRows();
+        if (x.length == 0) {
+            JOptionPane.showMessageDialog(Registro2, "Debes asignar almenos un ATM.");
+        } else {
+            for (int i = 0; i < x.length; i++) {
+                ((Mantenimiento)usuarios.get(usuarios.size()-1)).getAtms().add(atms.get(x[i]));
+            }
+            JOptionPane.showMessageDialog(Registro2, "Se ha registrado exitosamente!");
+            
+            DefaultTableModel modelo = (DefaultTableModel) jt_atms.getModel();
+            int tamaño = jt_atms.getRowCount();
+            for (int i = 0; i < tamaño; i++) {
+                modelo.removeRow(0);
+            }
+            jt_atms.setModel(modelo);
+            
+            Registro2.setVisible(false);
+            Registro.setVisible(false);
+            tf_usuario.setText("");
+            tf_idusuario.setText("");
+            pf_passregistro.setText("");
+            tf_pnombre.setText("");
+            tf_snombre.setText("");
+            tf_papellido.setText("");
+            tf_sapellido.setText("");
+            yc_año.setYear(2020);
+            cb_tipousuario.setSelectedIndex(0);
+            
+            log.add(usuarios.get(usuarios.size()-1) + " se ha registrado el " + new Date());
+        }
+            
+    }//GEN-LAST:event_jButton16MouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1157,9 +1508,12 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog CrearATM;
     private javax.swing.JDialog MenuClientes;
+    private javax.swing.JDialog MenuM;
     private javax.swing.JDialog Registro;
+    private javax.swing.JDialog Registro2;
     private javax.swing.JDialog RetiroDinero;
     private javax.swing.JDialog Transacciones;
+    private javax.swing.JComboBox<String> cb_atmm;
     private javax.swing.JComboBox<String> cb_atms;
     private javax.swing.JComboBox<String> cb_cuentas;
     private javax.swing.JComboBox<String> cb_tipousuario;
@@ -1168,6 +1522,9 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1193,7 +1550,14 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1201,15 +1565,22 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel jl_100;
+    private javax.swing.JLabel jl_100m;
     private javax.swing.JLabel jl_500;
+    private javax.swing.JLabel jl_500m;
     private javax.swing.JLabel jl_saldo;
+    private javax.swing.JTable jt_atms;
     private javax.swing.JTable jt_trans;
     private javax.swing.JPasswordField pf_pass;
+    private javax.swing.JPasswordField pf_passm;
     private javax.swing.JPasswordField pf_passregistro;
     private javax.swing.JPasswordField pf_passretiro;
     private javax.swing.JSpinner sp_100;
+    private javax.swing.JSpinner sp_100m;
     private javax.swing.JSpinner sp_500;
+    private javax.swing.JSpinner sp_500m;
     private javax.swing.JTextField tf_idatm;
     private javax.swing.JTextField tf_idretiro;
     private javax.swing.JTextField tf_idusuario;
