@@ -25,47 +25,29 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        usuarios.add(new Cliente("camiloeferrera","java123","Camilo","Eduardo","Ferrera","Padilla","0801",2000,2020));
-        usuarios.add(new Mantenimiento ("diegom","java123", "Diego","Eduardo","Mendoza" ,"Mejia","0809",1998,2020));
-        ((Cliente)usuarios.get(0)).getCuentas().add(new Cuenta (11841136));
-        ((Cliente)usuarios.get(0)).getCuentas().add(new Cuenta (11811245));
-        atms.add(new ATM("Tegucigalpa","45675",2019));
-        atms.add(new ATM("SPS","45211",2017));
-        atms.get(1).setBilletesDe100(136);
-        ((Mantenimiento)usuarios.get(1)).getAtms().add(atms.get(0));
-//        File archivo = new File ("./Datos.txt");
-//        try{
-//            if(archivo.exists()){
-//                FileInputStream entrada = new FileInputStream(archivo);
-//                ObjectInputStream objeto = new ObjectInputStream(entrada);
-//                try{
-//                    while ((objeto.readObject())!=null) {
-//                        if ((objeto.readObject()) instanceof Usuario) {
-//                            usuarios.add((Usuario)(objeto.readObject()));
-//                        } else if ((objeto.readObject()) instanceof ATM) {
-//                            atms.add((ATM)(objeto.readObject()));
-//                        } else if ((objeto.readObject()) instanceof String){
-//                            log.add((String)(objeto.readObject()));
-//                        }
-//                    }
-//                }catch (EOFException ex) {
-//                    
-//                }
-//                objeto.close();
-//                entrada.close();
-//            }
-//        }catch (Exception ex) {
-//             ex.printStackTrace();
-//        }
-        
+        // SOLO TOCAR EN CASO QUE SE MAME EL PROGRAMA Y NO GUARDE LOS DATOS
+//        usuarios.add(new Cliente("camiloeferrera","java123","Camilo","Eduardo","Ferrera","Padilla","0801",2000,2020));
+//        usuarios.add(new Mantenimiento ("diegom","java123", "Diego","Eduardo","Mendoza" ,"Mejia","0809",1998,2020));
+//        ((Cliente)usuarios.get(0)).getCuentas().add(new Cuenta (11841136));
+//        ((Cliente)usuarios.get(0)).getCuentas().add(new Cuenta (11811245));
+//        atms.add(new ATM("Tegucigalpa","45675",2019));
+//        atms.add(new ATM("SPS","45211",2017));
+//        atms.get(1).setBilletesDe100(136);
+//        ((Mantenimiento)usuarios.get(1)).getAtms().add(atms.get(0));
+                        
+        au.cargarArchivo();
+        usuarios = au.getUsuarios();
+        at.cargarArchivo();
+        atms = at.getAtms();
+        al.cargarArchivo();
+        log = al.getLog();
+
         DefaultComboBoxModel cb = (DefaultComboBoxModel) cb_atms.getModel();
         for (int i = 0; i < atms.size(); i++) {
             cb.addElement(atms.get(i));
         }
         cb_atms.setModel(cb);
         cb_atmm.setModel(cb);
-        
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -1376,7 +1358,13 @@ public class Inicio extends javax.swing.JFrame {
                 Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-            
+        
+        au.setUsuarios(usuarios);
+        au.escribirArchivo();
+        at.setAtms(atms);
+        at.escribirArchivo();
+        al.setLog(log);
+        al.escribirArchivo();
         
     }//GEN-LAST:event_formWindowClosing
 
@@ -1597,5 +1585,8 @@ public class Inicio extends javax.swing.JFrame {
     ArrayList<ATM> atms = new ArrayList();
     ArrayList<Usuario> usuarios = new ArrayList();
     ArrayList<String> log = new ArrayList();
+    adminUsuario au = new adminUsuario("./Usuarios.txt");
+    adminATM at = new adminATM("./ATMS.txt");
+    adminLog al = new adminLog("./DatosLogBinario.txt");
     int flag,acciones = 0,contpass=0;
 }
